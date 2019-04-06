@@ -1,0 +1,89 @@
+<html>
+  <head>
+    <script type="text/x-mathjax-config"> MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}}); </script>
+    <script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+    <style>
+      body {
+        font-size: 2em;
+        padding: 20px 60px 20px 60px;
+      }
+    </style
+  </head>
+  <body>
+    <h2>Neural Networks</h2>
+    <h4>Size of Theta per Layer</h4>
+    <div class="formula">
+      \(\theta^{(j)} -> s_{j+1} \times (s_j + 1)\)
+    </div>
+    <h4>Forward Propagation</h4>
+    <h5>Layer</h5>
+    <div class="formula">
+      \( a^{(l)}_{i} = g( \Theta^{(l-1)}_{i0} x_0 + \Theta^{(l-1)}_{i1} x_1 + ... + \Theta^{(l-1)}_{in} x_n)\)
+    </div>
+    <div class="formula">
+      \( a^{(l)} = g( \Theta^{(l-1)} a^{(l-1)} )\)
+    </div>
+    <h5>Output</h5>
+    <div class="formula">
+      \( h_\Theta (x) = g( \Theta^{(L-1)}_{i0} a^{(L-1)}_0 + \Theta^{(L-1)}_{i1} a^{(L-1)}_1 + ... + \Theta^{(L-1)}_{ij} a^{(L-1)}_n)\)
+    </div>
+    <div class="formula">
+      \( h_\Theta(x) = g( \Theta^{(L-1)} a^{(L-1)} )\)
+    </div>
+    <h4>Cost Function</h4>
+    <div class="formula">
+      \( J(\Theta) = -\frac1m \left[ \displaystyle\sum^m_{i=1} \sum^K_{k=1} y^{(i)}_k \log( h_\Theta(x^{(i)}))_k + (1 - y^{(i)}_k) \log( 1 - h_\Theta(x^{(i)}))_k \right] + \frac \lambda {2m} \displaystyle \sum^{L-1}_{l=1} \sum^{s_l}_{i=1} \sum^{s_{l+1}}_{j=1} (\Theta^{(l)}_{ji})^2 \)
+    </div>
+    <h4>Backpropagation Gradient</h4>
+    <div class="formula">
+      \( \delta^{(L)}_j = a^{(L)}_j - y_j \)
+    </div>
+    <div class="formula">
+      \( \delta^{(l)} = (\Theta^{(l)})^T \delta^{(l+1)} .* (a^{(l)} .* (1-a^{(l)}))  \)
+    </div>
+    <div class="formula">
+      \( \Delta^{(l)}_{ij} := \Delta^{(l)}_{ij} + a^{(l)}_j \delta^{(l+1)}_i \)
+    </div>
+    <div class="formula">
+      \( \Delta^{(l)} :=  \Delta^{(l)} + \delta^{(l+1)} (a^{(l)})^T \)
+    </div>
+    <div class="formula">
+      \( D^{(l)}_{ij} := \frac1m \Delta^{(l)}_{ij} + \lambda\Theta^{(l)}_{ij} | j \neq 0 \)
+    </div>
+    <div class="formula">
+      \( D^{(l)}_{ij} := \frac1m \Delta^{(l)}_{ij} | j = 0 \)
+    </div>
+    <div class="formula">
+      \( \frac \delta {\delta\Theta^{(l)}_{ij}} J(\Theta) = D^{(l)}_{ij} \)
+    </div>
+
+    <h4>Gradient Checking</h4>
+    <div class="formula">
+      \( \theta \in R^n \)
+    </div>
+    <div class="formula">
+      \( \theta = \theta_1, \theta_2, ..., \theta_n \)
+    </div>
+    <div class="formula">
+      \( \frac \delta {\delta\theta_1} J(\theta) \approx \frac {J(\theta_1 + \epsilon, \theta_2, \theta_3, ..., \theta_n) - J(\theta_1 - \epsilon, \theta_2, \theta_3, ..., \theta_n) } {2\epsilon} \)
+    </div>
+    <div class="formula">
+      \( \frac \delta {\delta\theta_2} J(\theta) \approx \frac {J(\theta_1, \theta_2 + \epsilon, \theta_3, ..., \theta_n) - J(\theta_1, \theta_2 - \epsilon, \theta_3, ..., \theta_n) } {2\epsilon} \)
+    </div>
+    <div class="formula">
+      \( \frac \delta {\delta\theta_n} J(\theta) \approx \frac {J(\theta_1, \theta_2, \theta_3, ..., \theta_n + \epsilon) - J(\theta_1, \theta_2, \theta_3, ..., \theta_n - \epsilon) } {2\epsilon} \)
+    </div>
+
+    <h4>Steps</h4>
+    <ol>
+      <li>Randomly initialize weights</li>
+      <li>Implement forward propagation to get \(h_\theta(x^{(i)}) \) for any \( x^{(i)} \)</li>
+      <li>Implement code to get cost function \( J(\Theta) \)</li>
+      <li>Implement backprop to compute partial derivatives \( \frac \delta {\delta\Theta^{(l)}_{jk}} J(\Theta) \)</li>
+      <li>Use gradient checking to compare \( \frac \delta {\delta\Theta^{(l)}_{jk}} J(\Theta) \) computed using backpropagation vs. using numerical estimate of gradient of \( J(\Theta)\)</li>
+      <li>Use gradient descent or advanced optimiztation method with backpropagation to try to minimize \(J(\Theta)\) as a function of parameters \(\Theta\)</li>
+    </ol>
+
+
+  </body>
+</html>
